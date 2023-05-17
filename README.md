@@ -47,10 +47,6 @@ Remember, your API key is like a password - keep it secret, keep it safe. Enjoy 
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
 * `junior.enable`: Enable/disable this extension.
