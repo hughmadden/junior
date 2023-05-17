@@ -3,6 +3,11 @@
   "displayName": "junior",
   "description": "junior AI development agent",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hughmadden/junior.git"
+  },
+  
   "engines": {
     "vscode": "^1.78.0"
   },
@@ -14,12 +19,20 @@
   "contributes": {
     "commands": [
       {
-        "command": "junior.help",
-        "title": "Junior Help"
+        "command": "junior.slowmo",
+        "title": "Junior GPT 4.0 Full Generation"
       },
       {
-        "command": "junior.aichange",
-        "title": "AI Change"
+        "command": "junior.turboslowmo",
+        "title": "Junior GPT 3.5 Turbo Full Generation"
+      },
+      {
+        "command": "junior.turbodiffchange",
+        "title": "Junior GPT 3.5 Turbo Diff Generation"
+      },
+      {
+        "command": "junior.diffchange",
+        "title": "Junior GPT 4.0 Diff Generation"
       }
     ],
     "configuration": {

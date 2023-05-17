@@ -1,20 +1,49 @@
 # junior README
 
-This is the README for your extension "junior". After writing up a brief description, we recommend including the following sections.
+Hello there! I'm Junior, your brand new sidekick in the world of coding. 
+
+Imagine me as the eager beaver junior developer, the one who always has an extra cup of coffee and a spirit that never wanes. You know, the one who's always ready to take on the challenging, the mundane, the confusing, and turn them into something neat and manageable.
+
+I'm here to help lighten your load. Got a piece of code that needs tweaking? Pass it my way. Need to refactor that giant function into something more digestible? I've got your back!
+
+As a VS Code extension, I'm always just a click away, ready to spring into action whenever you need me. And the best part? I don't take coffee breaks, and I definitely don't sleep. I'm your 24/7 coding companion, bringing a fresh perspective and diligent assistance to your projects.
+
+So, let's code up a storm together. Ready when you are!
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Here's how I can assist you:
 
-For example if there is an image subfolder under your extension project workspace:
+1. **Turbo Slow Mo**: When you're not quite sure how to proceed, let me help. I'll call on GPT-3.5 Turbo to generate a full text replacement. If you've selected a specific block of text, I'll focus on that. If not, don't worry! I'll consider the entire open file. This may take a bit of time, but I promise it's worth the wait.
 
-\!\[feature X\]\(images/feature-x.png\)
+2. **Slow Mo**: Similar to Turbo Slow Mo, but with a twist! I'll use GPT-4.0 to perform the task. Whether it's a selection or the whole file, I'll handle it!
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+3. **Turbo Diff Mode**: Need some changes but not too many? I got you covered! I'll ask GPT-3.5 Turbo for a diff and apply the patch to your text. This should be faster as it's less generation. Keep in mind, it's still in its alpha stage. 
+
+4. **Diff Mode**: Just like Turbo Diff Mode, but this time, I'll take help from GPT-4.0. 
+
+And here's the best part: Once I've generated the changes, I won't just sit back and relax. I'll apply the changes automatically for you. But don't worry about losing control. I'll also open a diff window so you can review everything that's changed. If you don't like something, it's easy to roll it back. 
+
+For the best results, Slow Mo and Turbo Slow Mo are your friends. But don't hesitate to try out different modes.
+
+To access all these amazing features, simply press `Shift + Command + P` to open the command input, and then search for "Junior". Let's start refactoring!
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Hello there,
+
+You'll need an OpenAI API key. Here's how you can set it up:
+
+1. First, head over to the OpenAI website and create an account (if you haven't already). Once you're logged in, navigate to the API section to generate your unique API key.
+
+2. Now, let's move over to VS Code. Go to the extension settings by clicking on the gear icon in the Extensions view, and then select "Settings."
+
+3. In the Settings view, search for "Junior." You should see an input field for the OpenAI API key.
+
+4. Paste your OpenAI API key into this field, and voila, you're all set to go!
+
+Remember, your API key is like a password - keep it secret, keep it safe. Enjoy using Junior!
+
 
 ## Extension Settings
 
@@ -24,51 +53,22 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `junior.enable`: Enable/disable this extension.
+* `junior.openAIKey`: required to run.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-- need to change from small input box to change log collection of prompts and model versions, seeds, that created the delta
-- settings editor to capture openai key
-- way of previewing the file change before the change is done (or open straight to diff ?)
-- perhaps copy to tmp file?
+- Diff mode is not working well. maybe with better prompting it can be usable ? for now you'll need to use slow mo mode (which means waiting for gpt 3.5/4 to produce the entire replacement text for your selection)
+- The openai callout should be switched to streaming so you can spot a silly response and cancel quickly (ui widget needed as well)
+
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
 
-### 1.0.0
 
-Initial release of ...
+### 0.0.1
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release supports GPT 3.5 and and 4 code refactoring for the currently open file or text selection
 
 ---
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
