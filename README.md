@@ -19,22 +19,23 @@ code --install-extension ./junior-0.0.1.vsix
 
 ## Features
 
-Here's how I can assist you:
+1. **Junior GPT 4.0 Code Refactor**: This feature enables the GPT-4.0 AI to refactor your code. If you've selected a specific block of text, I'll focus on that. If not, no problem! I'll consider the entire open file.
 
-1. **Turbo Slow Mo**: When you're not quite sure how to proceed, let me help. I'll call on GPT-3.5 Turbo to generate a full text replacement. If you've selected a specific block of text, I'll focus on that. If not, don't worry! I'll consider the entire open file. This may take a bit of time, but I promise it's worth the wait.
+2. **Junior GPT 3.5 Turbo Code Refactor**: When you need a helping hand, this command is there for you. I'll employ GPT-3.5 Turbo to refactor your code, be it a selection or the entire file. Although it might take some time, the quality results will make it worthwhile.
 
-2. **Slow Mo**: Similar to Turbo Slow Mo, but with a twist! I'll use GPT-4.0 to perform the task. Whether it's a selection or the whole file, I'll handle it!
+3. **Junior GPT 3.5 New Code Generation**: Need to create some new code? Let GPT-3.5 Turbo assist you. This command generates new code based on the existing context to help you expand or complete your work.
 
-3. **Turbo Diff Mode**: Need some changes but not too many? I got you covered! I'll ask GPT-3.5 Turbo for a diff and apply the patch to your text. This should be faster as it's less generation. Keep in mind, it's still in its alpha stage. 
+4. **Junior GPT 4.0 New Code Generation**: Just like the GPT 3.5 version, but this command leverages the latest GPT-4.0 model for new code generation. 
 
-4. **Diff Mode**: Just like Turbo Diff Mode, but this time, I'll take help from GPT-4.0. 
+Here's the best part: Once I've generated the changes, I won't just sit back and relax. I'll apply the changes automatically for you. But don't worry about losing control. I'll also open a diff window so you can review everything that's changed. If you don't like something, it's easy to roll it back. 
 
-And here's the best part: Once I've generated the changes, I won't just sit back and relax. I'll apply the changes automatically for you. But don't worry about losing control. I'll also open a diff window so you can review everything that's changed. If you don't like something, it's easy to roll it back. 
+For the best results, use Junior GPT 4.0 Code Refactor and Junior GPT 3.5 Turbo Code Refactor for refactoring tasks. For new code generation, feel free to use either Junior GPT 3.5 New Code Generation or Junior GPT 4.0 New Code Generation depending on your preferences.
 
-For the best results, Slow Mo and Turbo Slow Mo are your friends. But don't hesitate to try out different modes.
+To access all these amazing features, simply press `Shift + Command + P` to open the command input, and then search for "Junior".
 
-To access all these amazing features, simply press `Shift + Command + P` to open the command input, and then search for "Junior". Let's start refactoring!
+I strongly suggest watch the "junior" output window as you'll see the work stream past like the matrix, and you can cancel if you don't like what you see.
 
+Let's start coding!
 ## Requirements
 
 Hello there,

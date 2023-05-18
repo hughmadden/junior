@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+import { IncomingMessage } from 'http';
+
 const config = vscode.workspace.getConfiguration("junior");
 const { Configuration, OpenAIApi } = require("openai");
 const openAiApiKey = config.get("openAIKey");
@@ -143,3 +145,74 @@ export async function queryConversationWithProgress(
     throw new Error(`ai error: ${e}`);
   }
 }
+
+export function queryConversationStreaming(
+  prompt: string[] = [],
+  systemGuide: string[] = [],
+  assistants: string[] = [],
+  maxLen = 3500,
+  fast = false,
+  onProgress?: (chunk: string) => void,
+  cancelToken?: { cancel: boolean }
+): Promise<string> {
+  return new Promise<string>(async (resolve, reject) => {
+    const messages = prepareConversation(prompt, systemGuide, assistants);
+    const trimmedMessages = trimToMaxTokens(messages, maxLen);
+    const tokenCount = trimmedMessages.length;
+    const maxTokens = maxLen - tokenCount;
+    let model = fast ? "gpt-3.5-turbo" : "gpt-4";
+
+    let response = '';
+
+    try {
+      const completion = await openai.createChatCompletion({
+        model: model,
+        messages: trimmedMessages.conversation,
+        max_tokens: maxTokens,
+        stream: true
+      }, { responseType: 'stream' });
+
+      const stream = completion.data as unknown as IncomingMessage;
+
+      stream.on('data', (chunk: Buffer) => {
+        if(cancelToken && cancelToken.cancel) {
+          stream.destroy(); // Stops reading from stream.
+          reject(new Error('Operation cancelled by user.'));
+          return;
+        }        
+        const payloads = chunk.toString().split("\n\n");
+        for (const payload of payloads) {
+          if (payload.includes('[DONE]')) return;
+          if (payload.startsWith("data:")) {
+            const data = JSON.parse(payload.replace("data: ", ""));
+            try {
+              const chunk: undefined | string = data.choices[0].delta?.content;
+              if (chunk) {
+                // console.log(chunk);
+                response += chunk;
+                if (onProgress !== undefined) { onProgress(chunk); }
+              }
+            } catch (error) {
+              console.log(`Error with JSON.parse and ${payload}.\n${error}`);
+            }
+          }
+        }
+      });
+
+      stream.on('end', () => {
+        setTimeout(() => {
+          console.log('\nStream done');
+          resolve(response);
+        }, 10);
+      });
+
+      stream.on('error', (e: Error) => {
+        console.log(e);
+        reject(new Error(`ai error: ${e}`));
+      });
+    } catch (e) {
+      reject(new Error(`ai error: ${e}`));
+    }
+  });
+}
+

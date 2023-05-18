@@ -16,27 +16,27 @@
   "activationEvents": [
     "onCommand:junior.slowmo",
     "onCommand:junior.turboslowmo",
-    "onCommand:junior.turbodiffchange",
-    "onCommand:junior.diffchange"
+    "onCommand:junior.turbonewcode",
+    "onCommand:junior.newcode"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "junior.slowmo",
-        "title": "Junior GPT 4.0 Full Generation"
+        "title": "Junior GPT 4.0 Code Refactor"
       },
       {
         "command": "junior.turboslowmo",
-        "title": "Junior GPT 3.5 Turbo Full Generation"
+        "title": "Junior GPT 3.5 Turbo Code Refactor"
       },
       {
-        "command": "junior.turbodiffchange",
-        "title": "Junior GPT 3.5 Turbo Diff Generation"
+        "command": "junior.turbonewcode",
+        "title": "Junior GPT 3.5 New Code Generation"
       },
       {
-        "command": "junior.diffchange",
-        "title": "Junior GPT 4.0 Diff Generation"
+        "command": "junior.newcode",
+        "title": "Junior GPT 4.0 New Code Generation"
       }
     ],
     "configuration": {
@@ -45,7 +45,7 @@
         "junior.openAIKey": {
           "type": "string",
           "default": "",
-          "description": "API key for OpenAI/ChatGPT"
+          "description": "api key for OpenAI/ChatGPT"
         }
       }
     }

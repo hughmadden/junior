@@ -10,6 +10,15 @@ import * as diff from "diff";
 
 const JUNIOR_VERSION = "0.0.1";
 
+let outputChannel: vscode.OutputChannel | undefined;
+
+function getMyOutputChannel(): vscode.OutputChannel {
+    if (!outputChannel) {
+        outputChannel = vscode.window.createOutputChannel("junior");
+    }
+    return outputChannel;
+}
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -35,7 +44,8 @@ export function activate(context: vscode.ExtensionContext) {
   const registerAiCommand = (
     commandId: string,
     fastOnly: boolean,
-    calculateDiff: boolean
+    calculateDiff: boolean,
+    newCode: boolean = false
   ) => {
     return vscode.commands.registerCommand(commandId, async () => {
       let editor = vscode.window.activeTextEditor;
@@ -79,35 +89,58 @@ export function activate(context: vscode.ExtensionContext) {
         };
 
         vscode.window.withProgress(progressOptions, async (progress, token) => {
+          let editor = vscode.window.activeTextEditor;
+          if (!editor) {
+            vscode.window.showInformationMessage("No open text editor");
+            return;
+          }
+          let position = editor.selection.active;
+          const cancelToken = { cancel: false };
           token.onCancellationRequested(() => {
             cancellationTokenSource.cancel();
             vscode.window.showInformationMessage("Cancelled.");
+            cancelToken.cancel = true;
             return;
           });
 
           progress.report({ increment: 0 });
 
           let response: any = "";
-
-          if (userInput !== undefined) {
+          let submittedOriginal = text;
+          if (calculateDiff) { submittedOriginal = text; }
+          if (userInput !== undefined && cancelToken.cancel === false) {            
             let runFastOnly = fastOnly;
+            const outputChannel = getMyOutputChannel(); 
+            outputChannel.append(`\nssssshhhh junior is working: ${userInput}\n========\n`);            
             response = await aiService.generateChanges(
-              text,
+              submittedOriginal,
               userInput,
               fileName,
               runFastOnly,
               calculateDiff,
-              (progressNumber) => {
+              newCode,
+              (progressChunk) => {
                 if (!token.isCancellationRequested) {
+                  let progressNumber = 0.01;
+                  const outputChannel = getMyOutputChannel();
+                  outputChannel.append(progressChunk);                  
                   progress.report({ increment: progressNumber });
+                } else {
+                  cancelToken.cancel = true;
                 }
-              }
+              },
+              cancelToken
             );
           } else {
             vscode.window.showInformationMessage("Cancelled.");
+            cancelToken.cancel = true;
             return;
           }
 
+          if (cancelToken.cancel) {
+            return;
+          }
+          
           if (response.status === "ERROR") {
             vscode.window.showInformationMessage(
               `Error generating changes: ${response.errorMessage}`
@@ -119,7 +152,7 @@ export function activate(context: vscode.ExtensionContext) {
           if (calculateDiff) {
             let proposedPatch = response.proposedChanges;
             let patches = diff.parsePatch(proposedPatch);
-            proposedText = text;
+            proposedText = submittedOriginal;
 
             for (let patch of patches) {
               let patchedText = diff.applyPatch(proposedText, patch);
@@ -136,22 +169,20 @@ export function activate(context: vscode.ExtensionContext) {
           } else {
             proposedText = response.proposedChanges;
           }
-
-          let editor = vscode.window.activeTextEditor;
-          if (!editor) {
-            vscode.window.showInformationMessage("No open text editor");
-            return;
-          }
           await editor.edit((editBuilder) => {
             if (selection.isEmpty) {
-              const lastLine = document.lineAt(document.lineCount - 1);
-              const entireRange = new vscode.Range(
-                0,
-                0,
-                document.lineCount - 1,
-                lastLine.range.end.character
-              );
-              editBuilder.replace(entireRange, proposedText);
+              if (newCode) {
+                editBuilder.insert(position, proposedText);
+              } else {
+                const lastLine = document.lineAt(document.lineCount - 1);
+                const entireRange = new vscode.Range(
+                  0,
+                  0,
+                  document.lineCount - 1,
+                  lastLine.range.end.character
+                );
+                editBuilder.replace(entireRange, proposedText);
+              }
             } else {
               editBuilder.replace(selection, proposedText);
             }
@@ -173,14 +204,17 @@ export function activate(context: vscode.ExtensionContext) {
   // context.subscriptions.push(disposable);
   context.subscriptions.push(registerAiCommand("junior.slowmo", false, false));
   context.subscriptions.push(
-    registerAiCommand("junior.turboslowmo", false, false)
+    registerAiCommand("junior.turboslowmo", true, false)
   );
-  context.subscriptions.push(
-    registerAiCommand("junior.diffchange", false, true)
-  );
-  context.subscriptions.push(
-    registerAiCommand("junior.turbodiffchange", true, true)
-  );
+  context.subscriptions.push(registerAiCommand("junior.turbonewcode", true, false,true));
+  context.subscriptions.push(registerAiCommand("junior.newcode", true, false,true));
+  // diff broken, maybe gpt5 ?
+  // context.subscriptions.push(
+  //   registerAiCommand("junior.diffchange", false, true)
+  // );
+  // context.subscriptions.push(
+  //   registerAiCommand("junior.turbodiffchange", true, true)
+  // );
 }
 
 // This method is called when your extension is deactivated
