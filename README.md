@@ -10,6 +10,13 @@ As a VS Code extension, I'm always just a click away, ready to spring into actio
 
 So, let's code up a storm together. Ready when you are!
 
+Run: 
+in vs code command shift p and shell command - install code in your PATH
+npm install -g vsce
+vsce package
+code --install-extension ./junior-0.0.1.vsix 
+
+
 ## Features
 
 Here's how I can assist you:

@@ -13,6 +13,7 @@ const JUNIOR_VERSION = "0.0.1";
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  console.log('Congratulations, your extension "junior" is now activating!');
   let config = vscode.workspace.getConfiguration("junior");
   let OPENAI_API_KEY = config.get("openAIKey");
   if (!OPENAI_API_KEY) {

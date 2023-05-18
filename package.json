@@ -7,14 +7,18 @@
     "type": "git",
     "url": "https://github.com/hughmadden/junior.git"
   },
-  
   "engines": {
     "vscode": "^1.78.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:junior.slowmo",
+    "onCommand:junior.turboslowmo",
+    "onCommand:junior.turbodiffchange",
+    "onCommand:junior.diffchange"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -67,12 +71,12 @@
     "eslint": "^8.39.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
-    "typescript": "^5.0.4",
-    "uuid": "^9.0.0"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "diff": "^5.1.0",
     "openai": "^3.2.1",
-    "tiktoken": "^1.0.7"
+    "tiktoken": "^1.0.7",
+    "uuid": "^9.0.0"
   }
 }
