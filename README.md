@@ -12,9 +12,12 @@ So, let's code up a storm together. Ready when you are!
 
 Run: 
 in vs code command shift p and shell command - install code in your PATH
+
 npm install -g vsce
+
 vsce package
-code --install-extension ./junior-0.0.1.vsix 
+
+code --install-extension ./junior-0.0.2.vsix 
 
 
 ## Features
@@ -44,9 +47,9 @@ You'll need an OpenAI API key. Here's how you can set it up:
 
 1. First, head over to the OpenAI website and create an account (if you haven't already). Once you're logged in, navigate to the API section to generate your unique API key.
 
-2. Now, let's move over to VS Code. Go to the extension settings by clicking on the gear icon in the Extensions view, and then select "Settings."
+2. Now, let's move over to VS Code. Go to the extension settings by clicking file -> settings -> extensions
 
-3. In the Settings view, search for "Junior." You should see an input field for the OpenAI API key.
+3. Search for "Junior." You should see an input field for the OpenAI API key.
 
 4. Paste your OpenAI API key into this field, and voila, you're all set to go!
 
@@ -65,8 +68,8 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-- Diff mode is not working well. maybe with better prompting it can be usable ? for now you'll need to use slow mo mode (which means waiting for gpt 3.5/4 to produce the entire replacement text for your selection)
-- The openai callout should be switched to streaming so you can spot a silly response and cancel quickly (ui widget needed as well)
+- Doesn't work with multiple files or allow refactoring/ creation of multiple files
+- Doesn't have a read-only "explain" style model
 
 ## Release Notes
 
@@ -74,7 +77,14 @@ This extension contributes the following settings:
 
 ### 0.0.1
 
-Initial release supports GPT 3.5 and and 4 code refactoring for the currently open file or text selection
+- Initial release supports GPT 3.5 and and 4 code refactoring for the currently open file or text selection
+
+---
+
+### 0.0.2
+
+- Added better cancel support and a junior output window with streaming support for the openai library
+- Added support for new content, and removed diff mode for now
 
 ---
 
