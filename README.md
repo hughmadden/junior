@@ -52,6 +52,9 @@ You'll need an OpenAI API key. Here's how you can set it up:
 
 Remember, your API key is like a password - keep it secret, keep it safe. Enjoy using Junior!
 
+/\_/\  
+( o.o )  
+ > ^ <
 
 ## Extension Settings
 
