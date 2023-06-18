@@ -75,7 +75,8 @@
   },
   "dependencies": {
     "diff": "^5.1.0",
-    "openai": "^3.2.1",
+    "openai": "^3.3.0",
+    "pdf-parse": "^1.1.1",
     "tiktoken": "^1.0.7",
     "uuid": "^9.0.0"
   }

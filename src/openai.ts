@@ -1,9 +1,11 @@
 import * as vscode from "vscode";
 import { IncomingMessage } from 'http';
+import dotenv from 'dotenv';
 
-const config = vscode.workspace.getConfiguration("junior");
+dotenv.config();
+
+const openAiApiKey: string = process.env.OPENAI_KEY!;
 const { Configuration, OpenAIApi } = require("openai");
-const openAiApiKey = config.get("openAIKey");
 const openAiConfiguration = new Configuration({
   apiKey: openAiApiKey,
 });
